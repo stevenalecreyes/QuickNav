@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './About.css';
 
 export default function About() {
     const [pageContent, setPageContent] = useState(null);
@@ -7,7 +8,6 @@ export default function About() {
         fetch('https://www.zesty.io/-/instant/7-e93178-vqvclg.json')
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 setPageContent(data);
             })
             .catch(error => {
@@ -16,11 +16,9 @@ export default function About() {
     }, []);
 
     return (
-        <div>
+        <div className='pageContent'>
             {pageContent !== null && pageContent.data && pageContent.data.length > 0 && (
-                <div>
-                    {pageContent.data[0].content.page_content}
-                </div>
+                <div dangerouslySetInnerHTML={{ __html: pageContent.data[0].content.page_content }} />
             )}
         </div>
     );
